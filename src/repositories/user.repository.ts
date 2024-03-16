@@ -5,26 +5,26 @@ import { z } from "zod";
 const prisma = new PrismaClient();
 
 class UserRepository {
-    users: any[] = [];
 
-    findByUsername(username: string): any | null {
-        const userExist = this.users.find((user) => user.username === username);
-        return userExist ? userExist : null;
-    }
-
-    async save(user: any) {
-
+    async verifyObjectUser(data: string){
+    try{
         const createUserSchema = z.object({
             username: z.string(),
             email: z.string().email(),
             password: z.string(),
             cpf: z.string(),
             address: z.string(),
-
         });
-        
+
+        return this.save(data);
+    }catch{
+        throw new Error("Um dos atributos esta errado")
+    }        
+    }
+
+    async save(user: any) {
         try {
-            const { username, email, password, cpf, address} = createUserSchema.parse(user);
+            const { username, email, password, cpf, address} = user;
             const newUser = await prisma.user.create({
                 data: {
                     email,
