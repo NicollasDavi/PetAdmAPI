@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String  @id @default(uuid())
+  username String  @unique
+  address  String
+  cpf      String  @unique
+  password String
+  email    String  @unique
+  pets     Pet[] // Relacionamento: Um usuário pode ter muitos pets
+}
+
+model Pet {
+  id         String       @id @default(uuid())
+  userId     String
+  name       String
+  breed      String
+  age        Int
+  species    String
+  alerts     String
+  owner      User         @relation(fields: [userId], references: [id]) // Relacionamento: Um pet pertence a um único usuário
+  services   PetService[]  // Relacionamento: Um pet pode ter muitos serviços
+}
+
+model PetService {
+  id         String    @id @default(uuid())
+  petId      String
+  employeeId String
+  name       String @unique
+  price      Float
+  employee   Employee @relation(fields: [employeeId], references: [id]) // Relacionamento: Um serviço é realizado por um único funcionário
+  pet        Pet      @relation(fields: [petId], references: [id]) // Relacionamento: Um serviço é para um único pet
+}
+
+model Employee {
+  id            String     @id @default(uuid())
+  name          String
+  email         String     @unique
+  entryTimeWork DateTime
+  exitTimeWork  DateTime
+  role          String
+  services      PetService[] // Relacionamento: Um funcionário pode realizar muitos serviços
+}
