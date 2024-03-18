@@ -14,7 +14,7 @@ model User {
   cpf      String  @unique
   password String
   email    String  @unique
-  pets     Pet[] // Relacionamento: Um usuário pode ter muitos pets
+  pets     Pet[]
 }
 
 model Pet {

@@ -8,6 +8,6 @@ const petController = new PetController();
 export async function routes(fastify: FastifyInstance, options: FastifyPluginOptions) {
 
     fastify.post("/user", userController.handle);
-
+    
     fastify.post("/pet", petController.handle);
 }
