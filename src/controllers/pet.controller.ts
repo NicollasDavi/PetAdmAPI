@@ -12,6 +12,8 @@ class PetController {
             return reply.status(400).send({ error: error.message });
         }
     }
+
+
 }
 
 export { PetController };
