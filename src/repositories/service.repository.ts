@@ -5,9 +5,10 @@ const prisma = new PrismaClient();
 class ServiceRepository{
     async save(service : any){
         try {
-            const { name, price,} = service;
+            const { name, price, id} = service;
             const newService = await prisma.service.create({
                 data: {
+                    id,
                     name,
                     price
                 }

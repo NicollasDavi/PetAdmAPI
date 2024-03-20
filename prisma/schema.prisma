@@ -33,14 +33,18 @@ model PetService {
   id         String    @id @default(uuid())
   petId      String
   employeeId String
+  serviceId String
+  date DateTime
+  service Service @relation(fields: [serviceId], references: [id])
   employee   Employee @relation(fields: [employeeId], references: [id]) // Relacionamento: Um serviço é realizado por um único funcionário
   pet        Pet      @relation(fields: [petId], references: [id]) // Relacionamento: Um serviço é para um único pet
 }
 
 model Service {
-  id         String    @id @default(uuid())
+  id         String    @id
   name       String @unique
   price      Float
+  petService PetService[]
 }
 
 model Employee {
