@@ -21,3 +21,5 @@ class PetServiceRepository{
         }
     }
 }
+
+export default new PetServiceRepository();
