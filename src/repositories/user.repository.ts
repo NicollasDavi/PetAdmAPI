@@ -16,6 +16,8 @@ class UserRepository {
             address: z.string(),
         });
 
+        
+
         return this.save(data);
     }catch{
         throw new Error("Um dos atributos esta errado")
